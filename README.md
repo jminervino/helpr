@@ -37,7 +37,7 @@ Construída com Spring Boot 2, Spring Security e JWT
 
 O **Helpr** é uma API REST para gestão de chamados técnicos, desenvolvida como POC (Proof of Concept) durante o bootcamp BCW18 da Soul Code Academy. A API gerencia técnicos, clientes e chamados de suporte com controle de acesso baseado em papéis via JWT.
 
-Este repositório contém o **backend Spring Boot**, consumido pelo [frontend Angular](../).
+Este repositório contém o **backend Spring Boot**, consumido pelo [frontend Angular](https://github.com/jminervino/helpr-Front).
 
 ---
 
@@ -339,7 +339,7 @@ A API aceita requisições de qualquer origem com os métodos: `GET`, `POST`, `P
 ### 1. Clone o repositório
 
 ```bash
-git clone https://github.com/seu-usuario/helpr-Front.git
+git clone https://github.com/jminervino/helpr-Front.git
 cd helpr-Front/helpr
 ```
 
@@ -470,4 +470,4 @@ No perfil `test`, o `DBService` popula automaticamente o banco com:
 
 ## Projeto Relacionado
 
-- **Frontend (Angular):** [`../`](../) — Interface web com Angular 14 e Angular Material
+- **Frontend (Angular):** [github.com/jminervino/helpr-Front](https://github.com/jminervino/helpr-Front) — Interface web com Angular 14 e Angular Material
