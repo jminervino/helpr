@@ -11,6 +11,7 @@ import com.api.helpr.domain.Pessoa;
 import com.api.helpr.domain.Tecnico;
 import com.api.helpr.domain.enums.Perfil;
 import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonProperty;
 
 public class TecnicoDTO extends Pessoa {
 
@@ -23,7 +24,9 @@ public class TecnicoDTO extends Pessoa {
 	protected String cpf;
 	@NotNull(message = "O E-MAIL não poderá ser nulo")
 	protected String email;
+	
 	@NotNull(message = "O campo de SENHA não pode ser nulo")
+	@JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
 	protected String senha;
 	protected Set<Integer> perfils = new HashSet<>();
 
@@ -32,7 +35,7 @@ public class TecnicoDTO extends Pessoa {
 
 	public TecnicoDTO() {
 		super();
-		addPerfils(Perfil.CLIENTE);
+		addPerfils(Perfil.TECNICO);
 	}
 
 	public TecnicoDTO(Tecnico obj) {
@@ -44,7 +47,7 @@ public class TecnicoDTO extends Pessoa {
 		this.senha = obj.getSenha();
 		this.perfils = obj.getPerfils().stream().map(x -> x.getCodigo()).collect(Collectors.toSet());
 		this.dataCriacao = obj.getDataCriacao();
-		addPerfil(Perfil.CLIENTE);
+		addPerfil(Perfil.TECNICO);
 	}
 
 	public Integer getId() {

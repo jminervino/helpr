@@ -10,6 +10,7 @@ import org.springframework.stereotype.Service;
 import com.api.helpr.domain.Pessoa;
 import com.api.helpr.domain.Tecnico;
 import com.api.helpr.domain.dtos.TecnicoDTO;
+import com.api.helpr.domain.enums.Perfil;
 import com.api.helpr.repositories.PessoaRepository;
 import com.api.helpr.repositories.TecnicoRepository;
 import com.api.helpr.services.exceptions.DataIntegrityViolationException;
@@ -45,6 +46,7 @@ public class TecnicoService {
 		objDto.setSenha(encoder.encode(objDto.getSenha()));
 		validaCpfEEmail(objDto);
 		Tecnico newObj = new Tecnico(objDto);
+		newObj.addPerfils(Perfil.TECNICO);
 		return repository.save(newObj);
 	}
 
@@ -53,8 +55,9 @@ public class TecnicoService {
 		objDto.setId(id);
 		Tecnico oldObj = findById(id);
 		validaCpfEEmail(objDto);
-		oldObj = new Tecnico(objDto);
-		return repository.save(oldObj);
+		objDto.setDataCriacao(oldObj.getDataCriacao());
+		Tecnico updated = new Tecnico(objDto);
+		return repository.save(updated);
 	}
 	
 	//Excluirá um tecnico pela ordem do endpoint.
@@ -72,12 +75,12 @@ public class TecnicoService {
 	private void validaCpfEEmail(TecnicoDTO objDto) {
 
 		Optional<Pessoa> obj = pessoaRepository.findByCpf(objDto.getCpf());
-		if (obj.isPresent() && obj.get().getId() != objDto.getId()) {
+		if (obj.isPresent() && !obj.get().getId().equals(objDto.getId())) {
 			throw new DataIntegrityViolationException("CPF já cadastrado no sistema!");
 		}
 
 		obj = pessoaRepository.findByEmail(objDto.getEmail());
-		if (obj.isPresent() && obj.get().getId() != objDto.getId()) {
+		if (obj.isPresent() && !obj.get().getId().equals(objDto.getId())) {
 			throw new DataIntegrityViolationException("E-mail já cadastrado no sistema!");
 		}
 	}
